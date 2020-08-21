@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>layout 后台大布局 - Layui</title>
+    <link rel="stylesheet" th:href="@{/layui/css/layui.css}">
+
+    <link rel="stylesheet" th:href="@{/css/voucher.css}">
+
+</head>
+<body class="layui-layout-body">
+<div class="layui-layout layui-layout-admin">
+    <div class="layui-header">
+        <div class="layui-logo">layui 后台布局</div>
+        <ul class="layui-nav layui-layout-right">
+            <li class="layui-nav-item">
+                <a href="javascript:;">
+                    <img src="http://t.cn/RCzsdCq" class="layui-nav-img">
+                    贤心
+                </a>
+                <dl class="layui-nav-child">
+                    <dd><a href="">基本资料</a></dd>
+                    <dd><a href="">安全设置</a></dd>
+                </dl>
+            </li>
+            <li class="layui-nav-item"><a href="">退了</a></li>
+        </ul>
+    </div>
+
+    <div class="layui-side layui-bg-black">
+        <div class="layui-side-scroll">
+            <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
+            <ul class="layui-nav layui-nav-tree" lay-filter="test">
+                <li class="layui-nav-item layui-nav-itemed">
+                    <a class="" href="javascript:;">凭证</a>
+                    <dl class="layui-nav-child">
+                        <dd><a href="javascript:;">录凭证</a></dd>
+                        <dd><a href="javascript:;">查凭证</a></dd>
+                        <dd><a href="javascript:;">凭证汇总表</a></dd>
+                        <dd><a href="javascript:;">原始凭证</a></dd>
+                        <dd><a href="javascript:;">业务凭证</a></dd>
+                    </dl>
+                </li>
+                <li class="layui-nav-item">
+                    <a href="javascript:;">账簿</a>
+                    <dl class="layui-nav-child">
+                        <dd><a href="javascript:;">明细账</a></dd>
+                        <dd><a href="javascript:;">总账</a></dd>
+                        <dd><a href="javascript:;">科目余额表</a></dd>
+                        <dd><a href="javascript:;">多栏账</a></dd>
+                        <dd><a href="javascript:;">数量金额明细账</a></dd>
+                        <dd><a href="javascript:;">数量金额总账</a></dd>
+                        <dd><a href="javascript:;">核算项目余额表</a></dd>
+                        <dd><a href="javascript:;">核算项目明细账</a></dd>
+                        <dd><a href="javascript:;">核算项目组合表</a></dd>
+                    </dl>
+                </li>
+                <li class="layui-nav-item">
+                    <a href="javascript:;">报表</a>
+                    <dl class="layui-nav-child">
+                        <dd><a href="javascript:;">资产负债表</a></dd>
+                        <dd><a href="javascript:;">总账</a></dd>
+                        <dd><a href="javascript:;">利润表</a></dd>
+                        <dd><a href="javascript:;">部门利润表</a></dd>
+                        <dd><a href="javascript:;">标准现金流量表</a></dd>
+                        <dd><a href="javascript:;">现金流量表</a></dd>
+                        <dd><a href="javascript:;">费用明细表</a></dd>
+                    </dl>
+                </li>
+
+
+                <li class="layui-nav-item"><a href="">云市场</a></li>
+                <li class="layui-nav-item"><a href="">发布商品</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="layui-body">
+        <div class="wrapper">
+            <div class="voucher_wrap">
+                <div class="voucher_top">
+                    <div class="mark_wrap">
+                        <span class="txt">凭证字</span>
+                        <span class="ui-combo-wrap" id="vch_mark">
+                          <input type="text" name="" class="input-txt" autocomplete="off" value=""/>
+                          <i class="trigger"></i>
+                        </span>
+                        <input type="text" class="ui-spinbox" id="vch_num"/>
+                        <span class="txt">号</span>
+                        <span class="date_wrap">
+                            <span class="txt">日期</span>
+                            <input type="text" class="ui-input ui-datepicker-input" id="vch_date"/>
+                        </span>
+                    </div>
+                    <div class="tit_wrap">
+                        <h1 class="voucher_tit">记账凭证</h1>
+                        <span id="vch_year"></span>年第<span id="vch_period"></span>期
+                    </div>
+                    <span class="attach_wrap">
+                        附单据
+                        <input type="text" class="ui-input" id="vch_attach" value="0"/>
+                        张
+                    </span>
+                </div>
+                <table class="voucher" id="voucher">
+                    <thead>
+                    <tr>
+                        <th class="col_operate"></th>
+                        <th class="col_summary" colspan="2">摘要</th>
+                        <th class="col_subject" colspan="2">会计科目 <i class="icon-topbar_help balance-explantion"></i>
+                        </th>
+                        <th class="col_quantity">数量</th>
+                        <th class="col_currency">币别</th>
+                        <th class="col_money"><strong class="tit">借方金额</strong>
+                            <div class="money_unit"><span>亿</span> <span>千</span> <span>百</span> <span>十</span>
+                                <span>万</span> <span>千</span> <span>百</span> <span>十</span> <span>元</span>
+                                <span>角</span> <span class="last">分</span></div>
+                        </th>
+                        <th class="col_money col_credit"><strong class="tit">贷方金额</strong>
+                            <div class="money_unit"><span>亿</span> <span>千</span> <span>百</span> <span>十</span>
+                                <span>万</span> <span>千</span> <span>百</span> <span>十</span> <span>元</span>
+                                <span>角</span> <span class="last">分</span></div>
+                        </th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr class="entry_item">
+                        <td class="col_operate">
+                            <div class="operate"><a title="增加分录" class="add"></a><a title="删除分录" class="del"></a></div>
+                        </td>
+                        <td class="col_summary" data-edit="summary">
+                            <div class="cell_val summary_val"></div>
+                        </td>
+                        <td class="col_option">
+                            <div class="option"><a class="selSummary">摘要</a></div>
+                        </td>
+                        <td class="col_subject" data-edit="subject">
+                            <div class="subject-dtl">
+                                <div class="cell_val subject_val"></div>
+                            </div>
+                        </td>
+                        <!-- <td class="col_subject" data-edit="subject"><div class="cell_val subject_val"></div></td> -->
+                        <td class="col_option">
+                            <div class="option"><a class="selSub">科目</a></div>
+                        </td>
+                        <td class="col_quantity">
+                            <div class="cell_val quantity_val"></div>
+                        </td>
+                        <td class="col_currency">
+                            <div class="cell_val curr_val"></div>
+                        </td>
+                        <td class="col_debite" data-edit="money">
+                            <div class="cell_val debit_val"></div>
+                        </td>
+                        <td class="col_credit" data-edit="money">
+                            <div class="cell_val credit_val"></div>
+                        </td>
+                    </tr>
+                    <tr class="entry_item">
+                        <td class="col_operate">
+                            <div class="operate"><a title="增加分录" class="add"></a><a title="删除分录" class="del"></a></div>
+                        </td>
+                        <td class="col_summary" data-edit="summary">
+                            <div class="cell_val summary_val"></div>
+                        </td>
+                        <td class="col_option">
+                            <div class="option"><a class="selSummary">摘要</a></div>
+                        </td>
+                        <td class="col_subject" data-edit="subject">
+                            <div class="subject-dtl">
+                                <div class="cell_val subject_val"></div>
+                            </div>
+                        </td>
+                        <!-- <td class="col_subject" data-edit="subject"><div class="cell_val subject_val"></div></td> -->
+                        <td class="col_option">
+                            <div class="option"><a class="selSub">科目</a></div>
+                        </td>
+                        <td class="col_quantity">
+                            <div class="cell_val quantity_val"></div>
+                        </td>
+                        <td class="col_currency">
+                            <div class="cell_val curr_val"></div>
+                        </td>
+                        <td class="col_debite" data-edit="money">
+                            <div class="cell_val debit_val"></div>
+                        </td>
+                        <td class="col_credit" data-edit="money">
+                            <div class="cell_val credit_val"></div>
+                        </td>
+                    </tr>
+                    <tr class="entry_item">
+                        <td class="col_operate">
+                            <div class="operate"><a title="增加分录" class="add"></a><a title="删除分录" class="del"></a></div>
+                        </td>
+                        <td class="col_summary" data-edit="summary">
+                            <div class="cell_val summary_val"></div>
+                        </td>
+                        <td class="col_option">
+                            <div class="option"><a class="selSummary">摘要</a></div>
+                        </td>
+                        <td class="col_subject" data-edit="subject">
+                            <div class="subject-dtl">
+                                <div class="cell_val subject_val"></div>
+                            </div>
+                        </td>
+                        <!-- <td class="col_subject" data-edit="subject"><div class="cell_val subject_val"></div></td> -->
+                        <td class="col_option">
+                            <div class="option"><a class="selSub">科目</a></div>
+                        </td>
+                        <td class="col_quantity">
+                            <div class="cell_val quantity_val"></div>
+                        </td>
+                        <td class="col_currency">
+                            <div class="cell_val curr_val"></div>
+                        </td>
+                        <td class="col_debite" data-edit="money">
+                            <div class="cell_val debit_val"></div>
+                        </td>
+                        <td class="col_credit" data-edit="money">
+                            <div class="cell_val credit_val"></div>
+                        </td>
+                    </tr>
+                    <tr class="entry_item">
+                        <td class="col_operate">
+                            <div class="operate"><a title="增加分录" class="add"></a><a title="删除分录" class="del"></a></div>
+                        </td>
+                        <td class="col_summary" data-edit="summary">
+                            <div class="cell_val summary_val"></div>
+                        </td>
+                        <td class="col_option">
+                            <div class="option"><a class="selSummary">摘要</a></div>
+                        </td>
+                        <td class="col_subject" data-edit="subject">
+                            <div class="subject-dtl">
+                                <div class="cell_val subject_val"></div>
+                            </div>
+                        </td>
+                        <!-- <td class="col_subject" data-edit="subject"><div class="cell_val subject_val"></div></td> -->
+                        <td class="col_option">
+                            <div class="option"><a class="selSub">科目</a></div>
+                        </td>
+                        <td class="col_quantity">
+                            <div class="cell_val quantity_val"></div>
+                        </td>
+                        <td class="col_currency">
+                            <div class="cell_val curr_val"></div>
+                        </td>
+                        <td class="col_debite" data-edit="money">
+                            <div class="cell_val debit_val" style="display: block;">111100</div>
+                        </td>
+                        <td class="col_credit" data-edit="money">
+                            <div class="cell_val credit_val"></div>
+                        </td>
+                    </tr>
+                    </tbody>
+                    <tfoot>
+                    <td class="col_operate"></td>
+                    <td colspan="4" class="col_total">合计：<span id="capAmount"></span></td>
+                    <td class="col_debite">
+                        <div class="cell_val debit_total" id="debit_total"></div>
+                    </td>
+                    <td class="col_credit">
+                        <div class="cell_val credit_total" id="credit_total"></div>
+                    </td>
+                    </tfoot>
+                </table>
+                <div class="vch_ft">
+                    <span class="fr f12 g6 dn" id="modifyTime">最后修改时间：<span></span></span></span>
+                    <span class="fr f12 g6 dn" id="createTime">录入时间：<span></span></span></span>
+                    <span class="fr f12 g6 dn" id="ldr_people">审核人：<span open-data type="userName"></span></span>
+                    制单人：<span open-data id="vch_people_display" type="userName"></span><span class="dn"
+                                                                                             id="vch_people"></span>
+                </div>
+                <div id="tag"></div><!--状态标准-->
+            </div>
+            <div class="mod-toolbar-bottom" id="toolBottom">
+
+            </div>
+            <div class="zhengbao-pic"></div>
+        </div>
+    </div>
+
+
+</div>
+<script th:src="@{/layui/layui.js}"></script>
+<script>
+    //JavaScript代码区域
+    layui.use('element', function () {
+        var element = layui.element;
+
+    });
+</script>
+</body>
+</html>
